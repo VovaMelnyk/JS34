@@ -59,6 +59,61 @@
 // console.log(today.getTime());
 // console.log(Date.now());
 
+const refs = {
+  startBtn: document.querySelector("#start"),
+  stopBtn: document.querySelector("#stop"),
+  secondText: document.querySelector(".seconds"),
+  minutesText: document.querySelector(".minutes"),
+};
+
+function timer() {
+  result = Math.floor((new Date() - startDate) / 1000);
+  seconds = result % 60;
+  minutes = Math.floor(result / 60);
+  refs.secondText.textContent = seconds < 10 ? `0${seconds}` : seconds;
+  refs.minutesText.textContent = minutes < 10 ? `0${minutes}` : minutes;
+}
+
+let watchId = null;
+let startDate = null;
+let result = null;
+let seconds = null;
+let minutes = null;
+
+function startWatch() {
+  startDate = new Date();
+  watchId = setInterval(timer, 1000);
+}
+
+// function startWatch() {
+//   startDate = new Date();
+//   watchId = setInterval(() => {
+//     result = Math.floor((new Date() - startDate) / 1000);
+//     refs.secondText.textContent = result < 10 ? `0${result}` : result;
+//   }, 1000);
+// }
+
+function stopWatch() {
+  clearInterval(watchId);
+}
+
+refs.startBtn.addEventListener("click", startWatch);
+refs.stopBtn.addEventListener("click", stopWatch);
+
+const time = 126;
+console.log("minutes", Math.floor(126 / 60));
+console.log("seconds", 126 % 60);
+
+// new Date ()
+// 1) 2 авг 21:03:36
+// 2) 2 авг 21:03:37
+// 1 сек
+
+// Date.now()
+// 1) 12345678980
+// 2) 1234567891
+// 1 сек
+
 // stopwatch
 
 // class Stopwatch {
